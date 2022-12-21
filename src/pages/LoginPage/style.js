@@ -10,6 +10,7 @@ export const StyledLoginPage = styled.div`
 
     .form {
         background-color: #f1f1f1;
+        border-radius: 5px;
         width: 100%;
         max-width: 480px;
         padding: .5rem;

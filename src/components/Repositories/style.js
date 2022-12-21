@@ -29,6 +29,7 @@ export const StyledRpositories = styled.div`
             > img {
                 width: 53px;
                 border: 1px solid #d5d5d5;
+                border-radius: 50px;
             }
 
             .info {

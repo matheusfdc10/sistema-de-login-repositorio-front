@@ -7,9 +7,10 @@ export const StyledRegister = styled.div`
     justify-content: center;
     min-height: 100vh;
     padding: 0 2rem;
-
+    
     .form {
         background-color: #f1f1f1;
+        border-radius: 5px;
         width: 100%;
         max-width: 480px;
         padding: .5rem;
