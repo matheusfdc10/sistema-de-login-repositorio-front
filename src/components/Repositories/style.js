@@ -26,6 +26,11 @@ export const StyledRpositories = styled.div`
                 border-bottom: none;
             }
 
+            > img {
+                width: 53px;
+                border: 1px solid #d5d5d5;
+            }
+
             .info {
                 flex: 1;
 

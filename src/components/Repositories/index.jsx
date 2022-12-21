@@ -77,6 +77,7 @@ export default function Repositories({
       <ul className="list">
         {repositories.map((repository) => (
           <li className="item" key={repository._id}>
+            <img src={`https://github.com/${repository.name.split('/')[0]}.png`} alt="img" />
             <div className="info">
               <a href={repository.url}>
                 <div className="owner">{repository.name.split('/')[0]}</div>

@@ -30,7 +30,7 @@ export default function MainPage() {
 
     const handleLogout = () => {
         logout()
-        toast.success('Sessão finalizada com sucesso!')
+        toast.success('Sessão finalizada!')
     }
 
     const handleSearch = (query) => {
