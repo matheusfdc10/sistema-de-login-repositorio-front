@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth'
 import { createUser } from '../../services/api'
 import { StyledRegister } from './style'
-
+import {  toast } from 'react-toastify';
 
 export default function RegisterPage() {
     const { login } = useContext(AuthContext)
@@ -14,14 +14,21 @@ export default function RegisterPage() {
 
     const handleRegister = async () => {
         if(password !== confirmPassword){
-            return null
+            return toast.warning('Senhas não conferem')
         }
 
-        const response = await createUser(name, email, password)
-
-        if(response){
-            login(email, password)
+        try {
+            const response = await createUser(name, email, password)
+            
+            if(response){
+                await login(email, password)
+                toast.success('Conta criada com sucesso!')
+            }
+            
+        } catch(err) {
+            toast.error(err.response.data.msg)
         }
+            
     }
 
     return(

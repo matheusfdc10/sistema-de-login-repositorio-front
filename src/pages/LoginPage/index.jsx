@@ -3,14 +3,20 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth'
 import { StyledLoginPage } from './style'
 
+import {  toast } from 'react-toastify';
 
 export default function LoginPage() {
     const { login } = useContext(AuthContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleLogin = async (event) => {
-        login(email, password)
+    const handleLogin = async () => {
+        try {
+            await login(email, password)
+            toast.success('Login feito com sucesso!')
+        } catch(err) {
+            toast.error(err.response.data.msg)
+        }
     }
 
     return(

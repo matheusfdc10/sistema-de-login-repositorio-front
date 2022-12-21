@@ -17,16 +17,20 @@ export default function Search({ handleSearch }) {
 
     return (
         <StyledSearch>
-            <label htmlFor="query">Procurar:</label>
-            <input 
-                type="text" 
-                name="query" 
-                id="query"
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-            />
-            <button onClick={handleClear}>Limpar</button>
-            <button onClick={() => handleSearch(query)}>Procurar</button>
+            <div className="search">
+                <label htmlFor="query">Procurar:</label>
+                <input 
+                    type="text" 
+                    name="query" 
+                    id="query"
+                    value={query}
+                    onChange={e => setQuery(e.target.value)}
+                />
+            </div>
+            <div className="actions">
+                <button onClick={handleClear}>Limpar</button>
+                <button onClick={() => handleSearch(query)}>Procurar</button>
+            </div>
         </StyledSearch>
     )
 }

@@ -1,17 +1,17 @@
 import { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import Nav from '../../components/Nav'
 import Repositories from '../../components/Repositories'
 import Search from '../../components/Search'
 import { AuthContext } from '../../contexts/auth'
-import { createRepository, destroyRepository, getRepositories } from '../../services/api'
+import { createRepository, destroyRepository, getRepositories, updateRepository } from '../../services/api'
 import './style.css'
+import {  toast } from 'react-toastify';
 
 export default function MainPage() {
     const { user, logout } = useContext(AuthContext)
     const [ repositories, setRepositories ] = useState([])
     const [ loading, setLoading ] = useState(true)
-    const [ loadingError, setLoadingError ] = useState(false)
+    // const [ loadingError, setLoadingError ] = useState(false)
 
     const loadData = async (query = '') => {
         try{
@@ -19,8 +19,8 @@ export default function MainPage() {
             setRepositories(response.data)
             setLoading(false)
         } catch(err) {
-            console.log(err)
-            setLoadingError(true)
+            return toast.error(err.response?.data.msg)
+            // setLoadingError(true)
         }
     }
 
@@ -30,6 +30,7 @@ export default function MainPage() {
 
     const handleLogout = () => {
         logout()
+        toast.success('Sessão finalizada com sucesso!')
     }
 
     const handleSearch = (query) => {
@@ -37,28 +38,48 @@ export default function MainPage() {
     }
 
     const handleDeleteRepo = async (repository) => {
-
-        await destroyRepository(user?.id, repository._id)
-        await loadData()
+        try {
+            const response = await destroyRepository(user?.id, repository._id)
+            await loadData()
+            
+            toast.success(response.data.msg)
+        } catch(err) {
+            return toast.error(err.response?.data.msg)
+        }
     }
 
     const handleNewRepo = async (url) => {
         try {
-            await createRepository(user?.id, url)
+            const response = await createRepository(user?.id, url)
             await loadData()
+
+            toast.success(response.data.msg)
         } catch(err) {
-            console.log(err)
-            setLoadingError(true)
+            toast.error(err.response?.data.msg)
+            // setLoadingError(true)
         }
     }
 
-    if (loadingError) {
-        return (
-            <div className="loading">
-                Erro ao carregar dados do repositório. <Link to="login">Voltar</Link>
-            </div>
-        ) 
+    const handleUpdateRepo = async (repository, newRepository) => {
+        try {
+            const response = await updateRepository(user?.id, repository._id, newRepository)
+            await loadData()
+
+            toast.success(response.data.msg)
+            return true
+        } catch(err) {
+            toast.error(err.response?.data.msg)
+            return false
+        }
     }
+
+    // if (loadingError) {
+    //     return (
+    //         <div className="loading">
+    //             Erro ao carregar dados do repositório. <Link to="login">Voltar</Link>
+    //         </div>
+    //     ) 
+    // }
 
     if (loading) {
         return (
@@ -76,6 +97,7 @@ export default function MainPage() {
                 repositories={repositories} 
                 handleDeleteRepo={handleDeleteRepo} 
                 handleNewRepo={handleNewRepo}
+                handleUpdateRepo={handleUpdateRepo}
             />
         </>
     )
