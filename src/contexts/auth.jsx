@@ -1,5 +1,6 @@
 import { useState, createContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { api, createSession } from '../services/api'
 
 export const AuthContext = createContext()
@@ -22,12 +23,18 @@ export function AuthProvider({ children }) {
     }, [])
 
     async function login(email, password) {
-        const response = await createSession(email, password)
-        localStorage.setItem('user', JSON.stringify(response.data.user))
-        localStorage.setItem('token', response.data.token)
-        api.defaults.headers.Authorization = `Bearer ${response.data.token}`
-        setUser(response.data.user)
-        navigate('/')
+        try {
+            const response = await createSession(email, password)
+            localStorage.setItem('user', JSON.stringify(response.data.user))
+            localStorage.setItem('token', response.data.token)
+            api.defaults.headers.Authorization = `Bearer ${response.data.token}`
+            setUser(response.data.user)
+            navigate('/')
+            const name = response.data.user.name.split(' ')[0]
+            toast.success(`Seja bem vindo(a) ${name}!`)
+        } catch(err) {
+            toast.error(err.response.data.msg)
+        }
     }
 
     function logout() {
@@ -36,6 +43,7 @@ export function AuthProvider({ children }) {
         api.defaults.headers.Authorization = null
         setUser(null)
         navigate('/login')
+        toast.success('Sessão finalizada!')
     }
 
     return (

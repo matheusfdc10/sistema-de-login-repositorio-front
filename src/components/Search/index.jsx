@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react"
 import { StyledSearch } from "./style"
 
+const handleSearch = (user, setRepositories, setLoading, query, loadData) => {
+    loadData(user, setRepositories, setLoading, query)
+}
 
-export default function Search({ handleSearch }) {
+export default function Search({ user, setRepositories, setLoading, loadData}) {
     const [query, setQuery] = useState('')
 
     useEffect(() => {
-        handleSearch('')
-    }, [query === ''])
-    
-    const handleClear = () => {
-        setQuery('')
-        handleSearch('')
-    }
-
+        handleSearch(user, setRepositories, setLoading, query, loadData)
+    }, [user, setLoading, loadData, query, setRepositories])
 
     return (
         <StyledSearch>
@@ -28,8 +25,8 @@ export default function Search({ handleSearch }) {
                 />
             </div>
             <div className="actions">
-                <button onClick={handleClear}>Limpar</button>
-                <button onClick={() => handleSearch(query)}>Procurar</button>
+                <button onClick={() => setQuery('')}>Limpar</button>
+                {/* <button onClick={() => handleSearch(user, setRepositories, setLoading, query, loadData)}>Procurar</button> */}
             </div>
         </StyledSearch>
     )

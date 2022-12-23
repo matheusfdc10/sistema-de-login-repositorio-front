@@ -4,7 +4,8 @@ import { AuthContext, AuthProvider } from './contexts/auth';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage'
 import MainPage from './pages/MainPage'
-
+import ConfirmPasswordPage from './pages/ConfirmPasswordPage';
+import UpdatePasswordPage from './pages/UpdatePassword';
 export default function AppRoutes() {
 
     function Private({ children }) {
@@ -38,6 +39,22 @@ export default function AppRoutes() {
                         element={
                             <Private>
                                 <MainPage />
+                            </Private>
+                        } 
+                    />
+                    <Route 
+                        path='/confirmPassword' 
+                        element={
+                            <Private>
+                                <ConfirmPasswordPage />
+                            </Private>
+                        } 
+                    />
+                    <Route 
+                        path='/updatePassword/:token' 
+                        element={
+                            <Private>
+                                <UpdatePasswordPage />
                             </Private>
                         } 
                     />

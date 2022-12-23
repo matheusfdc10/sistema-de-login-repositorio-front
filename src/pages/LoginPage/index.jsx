@@ -3,21 +3,15 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth'
 import { StyledLoginPage } from './style'
 
-import {  toast } from 'react-toastify';
+export const handleLogin = async (email, password, setPassword, login) => {
+    setPassword('')
+    login(email, password)
+}
 
 export default function LoginPage() {
     const { login } = useContext(AuthContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
-    const handleLogin = async () => {
-        try {
-            await login(email, password)
-            toast.success('Login feito com sucesso!')
-        } catch(err) {
-            toast.error(err.response.data.msg)
-        }
-    }
 
     return(
         <StyledLoginPage>
@@ -46,7 +40,7 @@ export default function LoginPage() {
                 </div>
 
                 <div className="actions">
-                    <button onClick={handleLogin}>Entrar</button>
+                    <button onClick={() => handleLogin(email, password, setPassword, login)}>Entrar</button>
                     <label>Não possui conta? <Link to='/register'>Crie uma!</Link></label>
                 </div>
             </div>

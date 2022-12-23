@@ -8,11 +8,12 @@ export const createSession = async (email, password) => {
     return api.post('/sessions', { email, password})
 }
 
-export const createUser = async (name, email, password) => {
+export const createUser = async (name, email, password, confirmPassword) => {
     return api.post('/user', {
         name,
         email,
-        password
+        password,
+        confirmPassword
     })
 }
 
@@ -51,7 +52,25 @@ export const destroyRepository = async (userId, id) => {
     return api.delete(url)
 }
 
+export const confirmPassword = async (user, password) => {
+    const email = user.email
+    const url =  `/user/${user.id}/checkPassword`
+    return api.post(url, {
+        email,
+        password
+    })
+}
+
+export const newPassword = async (user, password, confirmPassword, token) => {
+    const url =  `/user/${user.id}/updatePassword/${token}`
+    return api.put(url, {
+        password,
+        confirmPassword
+    })
+}
+
 const getRepositoryName = (url) => {
+    // eslint-disable-next-line
     const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/
 
     const match = url.match(regex)
