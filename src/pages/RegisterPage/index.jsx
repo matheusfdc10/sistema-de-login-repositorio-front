@@ -5,21 +5,21 @@ import { createUser } from '../../services/api'
 import { StyledRegister } from './style'
 import {  toast } from 'react-toastify';
 
-export const handleRegister = async (name, email, password, confirmPassword, login) => {
-    try {
-        await createUser(name, email, password, confirmPassword)
-        await login(email, password)
-    } catch(err) {
-        toast.error(err.response.data.msg)
-    }
-}
-
 export default function RegisterPage() {
     const { login } = useContext(AuthContext)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+
+    const handleRegister = async (name, email, password, confirmPassword) => {
+        try {
+            await createUser(name, email, password, confirmPassword)
+            await login(email, password)
+        } catch(err) {
+            toast.error(`${err.response.data.msg} 2`)
+        }
+    }
 
     return(
         <StyledRegister>
@@ -70,7 +70,7 @@ export default function RegisterPage() {
                 </div>
 
                 <div className="actions">
-                    <button onClick={() => handleRegister(name, email, password, confirmPassword, login)}>Cadastrar</button>
+                    <button onClick={() => handleRegister(name, email, password, confirmPassword)}>Cadastrar</button>
                     <label><Link to='/login'>Fazer login!</Link></label>
                 </div>
             </div>

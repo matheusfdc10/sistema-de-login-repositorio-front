@@ -6,11 +6,12 @@ import LoginPage from './pages/LoginPage'
 import MainPage from './pages/MainPage'
 import ConfirmPasswordPage from './pages/ConfirmPasswordPage';
 import UpdatePasswordPage from './pages/UpdatePassword';
+
 export default function AppRoutes() {
 
     function Private({ children }) {
         const { authenticated, loading} = useContext(AuthContext)
-
+        
         if (loading) {
             return <div className="loading">Carregando...</div>
         }

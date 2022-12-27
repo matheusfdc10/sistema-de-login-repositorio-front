@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth'
 import { StyledLoginPage } from './style'
 
-export const handleLogin = async (email, password, setPassword, login) => {
-    setPassword('')
-    login(email, password)
-}
-
 export default function LoginPage() {
     const { login } = useContext(AuthContext)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const handleLogin = async (email, password) => {
+        setPassword('')
+        login(email, password)
+    }
 
     return(
         <StyledLoginPage>
@@ -40,7 +40,7 @@ export default function LoginPage() {
                 </div>
 
                 <div className="actions">
-                    <button onClick={() => handleLogin(email, password, setPassword, login)}>Entrar</button>
+                    <button onClick={() => handleLogin(email, password)}>Entrar</button>
                     <label>Não possui conta? <Link to='/register'>Crie uma!</Link></label>
                 </div>
             </div>

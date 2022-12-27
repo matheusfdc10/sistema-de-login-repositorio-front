@@ -5,23 +5,22 @@ import { AuthContext } from '../../contexts/auth'
 import { confirmPassword } from '../../services/api'
 import { StyledConfirmPassword } from './style'
 
-export async function handleConfirmPassword(user, password, setPassword, navigate) {
-    setPassword('')
-    try {
-        const response = await confirmPassword(user, password)
-
-        if (response.data.auth) {
-            navigate(`/updatePassword/${response.data.token}`)
-        }
-    } catch(err) {
-        toast.error(err.response.data.msg)
-    }
-}
-
 export default function ConfirmPasswordPage() {
     const navigate = useNavigate()
     const { user } = useContext(AuthContext)
     const [password, setPassword] = useState('')
+
+    async function handleConfirmPassword(user, password) {
+        setPassword('')
+        try {
+            const response = await confirmPassword(user, password)
+            if (response.data.auth) {
+                navigate(`/updatePassword/${response.data.token}`)
+            }
+        } catch(err) {
+            toast.error(`${err.response.data.msg} 3`)
+        }
+    }
 
     return (
         <StyledConfirmPassword>
@@ -38,7 +37,7 @@ export default function ConfirmPasswordPage() {
                 </div>
 
                 <div className="actions">
-                    <button onClick={() => handleConfirmPassword(user, password, setPassword, navigate)}>Verificar</button>
+                    <button onClick={() => handleConfirmPassword(user, password)}>Verificar</button>
                 </div>
             </div>
         </StyledConfirmPassword>

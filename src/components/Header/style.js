@@ -16,21 +16,25 @@ export const StyledHeader = styled.div`
         }
     }
 
-    > h2 {
-        font-size: 1.4rem;
-        flex: 1;
-        margin: 0;
-        margin-left: 15px;
-        padding-left: 15px;
-        margin-top: 13px;
+    .line {
+        border: 1px solid;
+        height: 40px;
 
+        margin: 0 15px;
         @media (max-width: 400px){
             display: none;
         }
     }
 
-    > button {
-        font-size: 1.3rem;
+    > h2 {
+        font-size: 1.4rem;
+        flex: 1;
+        margin: 0;
+        margin-top: 13px;
+
+        @media (max-width: 400px){
+            display: none;
+        }
     }
 
     > svg {

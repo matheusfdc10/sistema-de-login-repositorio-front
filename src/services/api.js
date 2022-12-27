@@ -8,6 +8,11 @@ export const createSession = async (email, password) => {
     return api.post('/sessions', { email, password})
 }
 
+export const userValid = async (token, email) => {
+    const url = `/sessions/${token}/${email}`
+    return api.get(url)
+}
+
 export const createUser = async (name, email, password, confirmPassword) => {
     return api.post('/user', {
         name,
@@ -17,13 +22,30 @@ export const createUser = async (name, email, password, confirmPassword) => {
     })
 }
 
+export const confirmPassword = async (user, password) => {
+    const email = user.email
+    const url =  `/user/${user.id}/checkPassword`
+    return api.post(url, {
+        email,
+        password
+    })
+}
+
+export const newPassword = async (user, password, confirmPassword, token) => {
+    const url =  `/user/${user.id}/updatePassword/${token}`
+    return api.put(url, {
+        password,
+        confirmPassword
+    })
+}
+
 export const getRepositories = async (userId, query) => {
     let url = `/user/${userId}/repositories/`
-
+    
     if (query !== '') {
         url += `?q=${query}`
     }
-
+    
     return api.get(url)
 }
 
@@ -50,23 +72,6 @@ export const updateRepository = async (userId, id, repositoryUrl) => {
 export const destroyRepository = async (userId, id) => {
     const url = `/user/${userId}/repositories/${id}`
     return api.delete(url)
-}
-
-export const confirmPassword = async (user, password) => {
-    const email = user.email
-    const url =  `/user/${user.id}/checkPassword`
-    return api.post(url, {
-        email,
-        password
-    })
-}
-
-export const newPassword = async (user, password, confirmPassword, token) => {
-    const url =  `/user/${user.id}/updatePassword/${token}`
-    return api.put(url, {
-        password,
-        confirmPassword
-    })
 }
 
 const getRepositoryName = (url) => {

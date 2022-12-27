@@ -8,8 +8,8 @@ export default function Header({ handleLogout, nameUser}) {
     
     return (
         <StyledHeader>
-            {/* <h1 className="user">Olá, {nameUser.split(' ')[0]}</h1> */}
             <h1 className="user">Meu App</h1>
+            <div className="line"/>
             <h2>Olá, {nameUser.split(' ')[0]}</h2>
             <FaBars onClick={() => setSidebar(!sidebar)} />
             {
@@ -19,7 +19,6 @@ export default function Header({ handleLogout, nameUser}) {
                         handleLogout={handleLogout}
                     />
             }
-            {/* <button onClick={handleLogout}>Sair</button> */}
         </StyledHeader>
     )
 }

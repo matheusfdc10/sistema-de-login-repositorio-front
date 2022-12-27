@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { StyledSearch } from "./style"
 
-const handleSearch = (user, setRepositories, setLoading, query, loadData) => {
-    loadData(user, setRepositories, setLoading, query)
-}
-
-export default function Search({ user, setRepositories, setLoading, loadData}) {
+export default function Search({ loadData }) {
     const [query, setQuery] = useState('')
 
-    useEffect(() => {
-        handleSearch(user, setRepositories, setLoading, query, loadData)
-    }, [user, setLoading, loadData, query, setRepositories])
+    const handleSearch = (query) => {
+        setQuery(query)
+        loadData(query)
+    }
 
     return (
         <StyledSearch>
@@ -21,12 +18,12 @@ export default function Search({ user, setRepositories, setLoading, loadData}) {
                     name="query" 
                     id="query"
                     value={query}
-                    onChange={e => setQuery(e.target.value)}
+                    onChange={e => handleSearch(e.target.value)}
                 />
             </div>
             <div className="actions">
-                <button onClick={() => setQuery('')}>Limpar</button>
-                {/* <button onClick={() => handleSearch(user, setRepositories, setLoading, query, loadData)}>Procurar</button> */}
+                <button onClick={() => handleSearch('')}>Limpar</button>
+                {/* <button onClick={() => loadData(query)}>Procurar</button> */}
             </div>
         </StyledSearch>
     )

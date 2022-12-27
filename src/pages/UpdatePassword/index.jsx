@@ -5,25 +5,25 @@ import { AuthContext } from '../../contexts/auth'
 import { newPassword } from '../../services/api'
 import { StyledUpdatePassword } from './style'
 
-export async function handleNewPassword(user, password, confirmPassword, token, navigate) {
-    try {
-        const response = await newPassword(user, password, confirmPassword, token)
-        navigate('/')
-        toast.success(response.data.msg)
-    } catch(err) {
-        if(err.response.data.error){
-            navigate('/confirmPassword')
-        }
-        toast.error(err.response.data.msg)
-    }
-}
-
 export default function UpdatePasswordPage() {
     const { token  } = useParams()
     const navigate = useNavigate()
     const { user } = useContext(AuthContext)
     const [password, setPassword] = useState('')
     const [confirmPassword, setComfirmPassword] = useState('')
+
+    async function handleNewPassword(user, password, confirmPassword, token) {
+        try {
+            const response = await newPassword(user, password, confirmPassword, token)
+            navigate('/')
+            toast.success(response.data.msg)
+        } catch(err) {
+            if(err.response.data.error){
+                navigate('/confirmPassword')
+            }
+            toast.error(err.response.data.msg)
+        }
+    }
 
     return (
         <StyledUpdatePassword>
@@ -49,7 +49,7 @@ export default function UpdatePasswordPage() {
                 </div>
 
                 <div className="actions">
-                    <button onClick={() => handleNewPassword(user, password, confirmPassword, token, navigate)}>Alterar</button>
+                    <button onClick={() => handleNewPassword(user, password, confirmPassword, token)}>Alterar</button>
                 </div>
             </div>
         </StyledUpdatePassword>

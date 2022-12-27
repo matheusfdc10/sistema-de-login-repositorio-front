@@ -1,4 +1,3 @@
-import './App.css';
 import AppRoutes from './AppRouters';
 
 // import {  toast } from 'react-toastify';
