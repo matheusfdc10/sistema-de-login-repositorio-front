@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
             api.defaults.headers.Authorization = `Bearer ${response.data.token} ${response.data.user.email}`
             setUser(response.data.user)
             navigate('/')
-
+            setLoading(false)
             const name = response.data.user.name.split(' ')[0]
             toast.success(`Seja bem vindo(a) ${name}!`)
         } catch(err) {
