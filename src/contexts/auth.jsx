@@ -1,7 +1,7 @@
 import { useState, createContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { api, createSession, userValid } from '../services/api'
+import { api, createSession, logoutSession, userValid } from '../services/api'
 
 export const AuthContext = createContext()
 
@@ -47,13 +47,21 @@ export function AuthProvider({ children }) {
         }
     }
 
-    function logout() {
-        localStorage.removeItem('user')
-        localStorage.removeItem('token')
-        api.defaults.headers.Authorization = null
-        setUser(null)
-        navigate('/login')
-        toast.success('Sessão finalizada!')
+    const logout = async () => {
+        const email = localStorage.getItem('user')
+        const token = localStorage.getItem('token')
+
+        try {
+            const response = await logoutSession(token, email)
+            localStorage.removeItem('user')
+            localStorage.removeItem('token')
+            api.defaults.headers.Authorization = null
+            setUser(null)
+            navigate('/login')
+            toast.success(response.data.msg)
+        } catch(err) {
+            toast.error(err.response.data.msg)
+        }
     }
 
     return (

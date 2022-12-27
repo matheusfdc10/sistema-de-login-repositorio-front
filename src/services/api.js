@@ -8,6 +8,11 @@ export const createSession = async (email, password) => {
     return api.post('/sessions', { email, password})
 }
 
+export const logoutSession = async (token, email) => {
+    const url = `/sessions/${token}/${email}`
+    return api.put(url)
+}
+
 export const userValid = async (token, email) => {
     const url = `/sessions/${token}/${email}`
     return api.get(url)
