@@ -10,13 +10,14 @@ export const StyledHeader = styled.div`
     > a {
         text-decoration: none;
         color: black;
+
+        @media (max-width: 400px){
+            flex: 1;
+        }
+
         .user {
             font-size: 2rem;
             margin: 0;
-
-            @media (max-width: 400px){
-                flex: 1;
-            }
         }
     }
 
