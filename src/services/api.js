@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const api = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://api-login-repository.onrender.com',
 })
 
 export const createUser = async (name, email, password, confirmPassword) => {
