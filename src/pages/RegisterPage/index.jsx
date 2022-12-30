@@ -17,7 +17,7 @@ export default function RegisterPage() {
             await createUser(name, email, password, confirmPassword)
             await login(email, password)
         } catch(err) {
-            toast.error(`${err.response.data.msg} 2`)
+            toast.error(err.response.data.msg)
         }
     }
 

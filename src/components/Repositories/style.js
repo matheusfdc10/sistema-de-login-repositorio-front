@@ -26,17 +26,24 @@ export const StyledRpositories = styled.div`
                 border-bottom: none;
             }
 
-            > img {
+            > a {
+                display: flex;
+                align-items: center;
+                flex: 1;
+                text-decoration: none;
+                color: black;
+
+                > img {
                 width: 53px;
                 border: 1px solid #d5d5d5;
                 border-radius: 50px;
-            }
+                }
 
-            .info {
-                flex: 1;
-
-                .name {
-                    font-size: 1.5rem;
+                .info {
+                    margin-left: 10px;
+                    .name {
+                        font-size: 1.5rem;
+                    }
                 }
             }
         }
@@ -75,10 +82,5 @@ export const StyledRpositories = styled.div`
 
     input {
         width: 100%;
-    }
-
-    a {
-        text-decoration: none;
-        color: black;
     }
 `

@@ -1,7 +1,7 @@
 import { useState, createContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { api, createSession, logoutSession, userValid } from '../services/api'
+import { createSession, getUser} from '../services/api'
 
 export const AuthContext = createContext()
 
@@ -9,56 +9,44 @@ export function AuthProvider({ children }) {
     const navigate = useNavigate()
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
-
+    
     useEffect(()  => {
-        realodPage()
-
-    }, [navigate, user])
+        loadUser()
+        // eslint-disable-next-line
+    }, [])
 
     async function login(email, password) {
         try {
             const response = await createSession(email, password)
-            localStorage.setItem('user', response.data.user.email)
             localStorage.setItem('token', response.data.token)
-            api.defaults.headers.Authorization = `Bearer ${response.data.token} ${response.data.user.email}`
-            setUser(response.data.user)
-            navigate('/')
-            setLoading(false)
-            const name = response.data.user.name.split(' ')[0]
+            const name = await loadUser()
             toast.success(`Seja bem vindo(a) ${name}!`)
         } catch(err) {
-            toast.error(`${err.response.data.msg} 1`)
+            logout()
+            toast.error(err.response.data.msg)
         }
     }
+    
+    const loadUser = async () => {
+        try{
+            const response = await getUser()
+            setUser(response.data)
+            navigate('/home')
+            setLoading(false)
 
-    const realodPage = async () => {
-        const email = localStorage.getItem('user')
-        const token = localStorage.getItem('token')
-
-        if(email && token && !user){
-            await userValid(token, email)
-                .then(user => user.data)
-                .then(user => {
-                    setUser(user)
-                    api.defaults.headers.Authorization = `Bearer ${token} ${email}`
-                    navigate('/')
-                    setLoading(false)
-                })
+            const name = response.data.name.split(' ')[0]
+            return name
+        } catch(err) {
+            logout()
+            toast.error(err.response.data.msg)
         }
     }
 
     const logout = async () => {
-        const email = localStorage.getItem('user')
-        const token = localStorage.getItem('token')
-
         try {
-            const response = await logoutSession(token, email)
-            localStorage.removeItem('user')
             localStorage.removeItem('token')
-            api.defaults.headers.Authorization = null
             setUser(null)
             navigate('/login')
-            toast.success(response.data.msg)
         } catch(err) {
             toast.error(err.response.data.msg)
         }

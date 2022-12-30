@@ -1,21 +1,19 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { AuthContext } from '../../contexts/auth'
 import { newPassword } from '../../services/api'
 import { StyledUpdatePassword } from './style'
 
 export default function UpdatePasswordPage() {
     const { token  } = useParams()
     const navigate = useNavigate()
-    const { user } = useContext(AuthContext)
     const [password, setPassword] = useState('')
     const [confirmPassword, setComfirmPassword] = useState('')
 
-    async function handleNewPassword(user, password, confirmPassword, token) {
+    async function handleNewPassword(password, confirmPassword, token) {
         try {
-            const response = await newPassword(user, password, confirmPassword, token)
-            navigate('/')
+            const response = await newPassword(password, confirmPassword, token)
+            navigate('/home')
             toast.success(response.data.msg)
         } catch(err) {
             if(err.response.data.error){
@@ -49,7 +47,7 @@ export default function UpdatePasswordPage() {
                 </div>
 
                 <div className="actions">
-                    <button onClick={() => handleNewPassword(user, password, confirmPassword, token)}>Alterar</button>
+                    <button onClick={() => handleNewPassword(password, confirmPassword, token)}>Alterar</button>
                 </div>
             </div>
         </StyledUpdatePassword>

@@ -1,24 +1,22 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { AuthContext } from '../../contexts/auth'
 import { confirmPassword } from '../../services/api'
 import { StyledConfirmPassword } from './style'
 
 export default function ConfirmPasswordPage() {
     const navigate = useNavigate()
-    const { user } = useContext(AuthContext)
     const [password, setPassword] = useState('')
 
-    async function handleConfirmPassword(user, password) {
+    async function handleConfirmPassword(password) {
         setPassword('')
         try {
-            const response = await confirmPassword(user, password)
+            const response = await confirmPassword(password)
             if (response.data.auth) {
                 navigate(`/updatePassword/${response.data.token}`)
             }
         } catch(err) {
-            toast.error(`${err.response.data.msg} 3`)
+            toast.error(err.response.data.msg)
         }
     }
 
@@ -37,7 +35,7 @@ export default function ConfirmPasswordPage() {
                 </div>
 
                 <div className="actions">
-                    <button onClick={() => handleConfirmPassword(user, password)}>Verificar</button>
+                    <button onClick={() => handleConfirmPassword(password)}>Verificar</button>
                 </div>
             </div>
         </StyledConfirmPassword>

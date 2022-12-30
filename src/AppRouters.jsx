@@ -5,7 +5,8 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage'
 import MainPage from './pages/MainPage'
 import ConfirmPasswordPage from './pages/ConfirmPasswordPage';
-import UpdatePasswordPage from './pages/UpdatePassword';
+import UpdatePasswordPage from './pages/UpdatePasswordPage';
+import HomePage from './pages/HomePage';
 
 export default function AppRoutes() {
 
@@ -42,23 +43,11 @@ export default function AppRoutes() {
                                 <MainPage />
                             </Private>
                         } 
-                    />
-                    <Route 
-                        path='/confirmPassword' 
-                        element={
-                            <Private>
-                                <ConfirmPasswordPage />
-                            </Private>
-                        } 
-                    />
-                    <Route 
-                        path='/updatePassword/:token' 
-                        element={
-                            <Private>
-                                <UpdatePasswordPage />
-                            </Private>
-                        } 
-                    />
+                    >
+                        <Route path='/home' element={<HomePage />} />
+                        <Route path='/confirmPassword' element={<ConfirmPasswordPage />} />
+                        <Route path='/updatePassword/:token' element={<UpdatePasswordPage />} />
+                    </Route>
                 </Routes>   
             </AuthProvider>
         </Router>
