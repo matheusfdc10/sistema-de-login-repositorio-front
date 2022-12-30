@@ -7,12 +7,16 @@ export const StyledHeader = styled.div`
     border-bottom: 1px solid #d5d5d5;
     padding: .5rem;
 
-    .user {
-        font-size: 2rem;
-        margin: 0;
+    > a {
+        text-decoration: none;
+        color: black;
+        .user {
+            font-size: 2rem;
+            margin: 0;
 
-        @media (max-width: 400px){
-            flex: 1;
+            @media (max-width: 400px){
+                flex: 1;
+            }
         }
     }
 
