@@ -50,7 +50,7 @@ export default function Repositories({
           </div>
           <div className="actions">
             <button onClick={() => setNewRepo("")}>Limpar</button>
-            <button onClick={() => onNewRepo()}>Adiconar</button>
+            <button onClick={() => onNewRepo()}>Adicionar</button>
           </div>
         </div>
       ) : (

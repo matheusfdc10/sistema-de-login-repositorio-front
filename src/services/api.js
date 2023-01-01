@@ -26,7 +26,7 @@ export const getUser = async () => {
 
 export const confirmPassword = async (password) => {
     authToken()
-    const url =  `/user/checkPassword`
+    const url = `/user/checkPassword`
 
     return api.post(url, {
         password
@@ -35,7 +35,7 @@ export const confirmPassword = async (password) => {
 
 export const newPassword = async (password, confirmPassword, tokenPassword) => {
     authToken()
-    const url =  `/user/updatePassword/${tokenPassword}`
+    const url = `/user/updatePassword/${tokenPassword}`
 
     return api.put(url, {
         password,
@@ -47,7 +47,7 @@ export const createRepository = async (repositoryUrl) => {
     authToken()
     const repositoryName = getRepositoryName(repositoryUrl)
     const url = `/user/repositories/`
-    
+
     return api.post(url, {
         name: repositoryName,
         url: repositoryUrl
@@ -57,11 +57,11 @@ export const createRepository = async (repositoryUrl) => {
 export const getRepositories = async (query) => {
     authToken()
     let url = `/user/repositories/`
-    
+
     if (query !== '') {
         url += `?q=${query}`
     }
-    
+
     return api.get(url)
 }
 
@@ -90,7 +90,7 @@ const getRepositoryName = (url) => {
     const match = url.match(regex)
     if (match == null) return null
 
-    if(match[2]){
+    if (match[2]) {
         const values = match[2].split('/')
         return `${values[1]}/${values[2]}`
     }
