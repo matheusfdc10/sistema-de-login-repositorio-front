@@ -6,6 +6,7 @@ export const StyledHeader = styled.div`
     background-color: #f1f1f1;
     border-bottom: 1px solid #d5d5d5;
     padding: .5rem;
+    box-shadow: rgb(0 0 0 / 27%) 0px 0px 15px;
 
     > a {
         text-decoration: none;

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const StyledRpositories = styled.div`
     max-width: 480px;
     margin: 1rem auto;
+    
 
     .title {
         font-size: 1.3rem;
@@ -13,6 +14,7 @@ export const StyledRpositories = styled.div`
         list-style: none;
         margin: 0;
         padding: 0;
+        box-shadow: rgb(0 0 0 / 27%) 0px 0px 15px;
 
         .item {
             display: flex;
@@ -57,6 +59,7 @@ export const StyledRpositories = styled.div`
         max-width: 480px;
         margin: 2rem auto;
         padding: .5rem;
+        box-shadow: rgb(0 0 0 / 27%) 0px 0px 15px;
 
         .insertRepo {
             display: flex; 

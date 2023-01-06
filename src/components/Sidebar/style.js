@@ -9,7 +9,7 @@ export const StyledSidebar = styled.div`
     width: 300px;
     right: ${props => props.sidebar ? '0' : '-100%'};
     animation: showSidebar .4s;
-    box-shadow: black 0px 0px 10px;
+    box-shadow: rgb(0 0 0 / 27%) 0px 0px 15px;
 
     > svg {
         position: fixed;

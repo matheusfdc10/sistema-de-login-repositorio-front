@@ -14,6 +14,7 @@ export const StyledUpdatePassword = Styled.div`
         width: 100%;
         max-width: 480px;
         padding: .5rem;
+        box-shadow: rgb(0 0 0 / 27%) 0px 0px 15px;
 
         .field {
 

@@ -8,6 +8,7 @@ export const StyledSearch = styled.div`
     max-width: 480px;
     margin: 2rem auto;
     padding: .5rem;
+    box-shadow: rgb(0 0 0 / 27%) 0px 0px 15px;
 
     .search {
         display: flex; 
