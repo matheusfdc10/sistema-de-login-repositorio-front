@@ -45,7 +45,7 @@ export default function Repositories({
               name="new-repo"
               id="new-repo"
               value={newRepo}
-              onChange={(e) => setNewRepo(e.target.value)}
+              onChange={(e) => setNewRepo(e.target.value.toLowerCase())}
             />
           </div>
           <div className="actions">
@@ -62,7 +62,7 @@ export default function Repositories({
               name="new-repo"
               id="new-repo"
               value={newRepo}
-              onChange={(e) => setNewRepo(e.target.value)}
+              onChange={(e) => setNewRepo(e.target.value.toLowerCase())}
             />
           </div>
           <div className="actions">

@@ -20,7 +20,7 @@ export default function Search({ loadData, lengthRepository }) {
               name="query"
               id="query"
               value={query}
-              onChange={(e) => handleSearch(e.target.value)}
+              onChange={(e) => handleSearch(e.target.value.toLowerCase())}
             />
           </div>
           <div className="actions">
